@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd"> <!-- dtd 约束xml文件该如何写 -->
+<configuration>
+    <properties resource="db.properties" ></properties>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+            <!-- 设置数据库方言 -->
+            <property name="helperDialect" value="mysql"/>
+
+            <!-- 默认为false, 设置为true的时候，当分页查询的时候，默认为查询总页数 -->
+            <property name="rowBoundsWithCount" value="true"/>
+
+            <!-- 默认值为false, 设置为true的时候，当指定pageSize为0，会查询所有值 -->
+            <property name="pageSizeZero" value="true"/>
+
+            <!-- 参数是否合理, 默认为false. 当设置为true的时候，当查询的pageNum<=0的时候，查询第一
+            页，当pageNum > 总页数的时候，查询最后一页
+            -->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver_class}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/qf/dao/OtherDao.xml"/>
+        <mapper resource="com/qf/dao/UserDao.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.OtherDao">
+    <insert id="insert"  parameterType="com.qf.pojo.Other">
+     insert  into other values(#{id},#{name})
+     </insert>
+    
+    
+    <insert id="insertAndGetId" parameterType="com.qf.pojo.Other">
+        insert into other (name) values (#{name})
+
+        <selectKey resultType="int"  order="AFTER" keyProperty="id">
+
+            select last_insert_id()
+        </selectKey>
+
+
+    </insert>
+    <insert id="batchInsert" >
+        insert into other (name) values
+            <foreach collection="list" item="ot" separator=",">
+                (#{ot.name})
+            </foreach>
+
+    </insert>
+    
+
+</mapper>
